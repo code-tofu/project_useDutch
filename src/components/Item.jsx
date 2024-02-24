@@ -6,9 +6,7 @@ import {
     AccordionIcon,
     AccordionPanel,
     Input,
-    IconButton,
     Flex,
-    Spacer,
     TableContainer,
     Table,
     Thead,
@@ -18,7 +16,7 @@ import {
     Tbody,
     InputLeftElement,
     InputGroup,
-    Center
+    Center,
 } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { useState } from "react";
@@ -32,38 +30,44 @@ const ItemType = PropTypes.shape({
 Item.propTypes = {
     item: ItemType,
     handleDelete: PropTypes.func,
-
 };
 
-export default function Item({item,handleDelete}) {
+export default function Item({ item, handleDelete }) {
     const [name, setName] = useState(item.name);
     const [price, setPrice] = useState(item.price);
     const [split, setSplit] = useState(item.split);
     return (
         <AccordionItem>
-                <AccordionButton>
-                    <DeleteIcon mr="12px" onClick={handleDelete}/>
-                    <Flex  gap="1" width="100%">
-                        <Center flex="2">
-                        <Input variant="unstyled" value={name}
-                        onChange={(e) => setName(e.target.value)} size="lg"   />
-                        
-                        </Center>
-                        <Center>
+            <AccordionButton>
+                <DeleteIcon mr="12px" onClick={handleDelete} />
+                <Flex gap="1" width="100%">
+                    <Center flex="2">
+                        <Input
+                            variant="unstyled"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            size="lg"
+                        />
+                    </Center>
+                    <Center>
                         <InputGroup>
-                        <InputLeftElement
+                            <InputLeftElement
                                 pointerEvents="none"
                                 color="gray.300"
                             >
                                 $
                             </InputLeftElement>
-                            <Input variant="flushed" value={price}
-                            onChange={(e) => setPrice(e.target.value)} maxWidth="7em"/>
+                            <Input
+                                variant="flushed"
+                                value={price}
+                                onChange={(e) => setPrice(e.target.value)}
+                                maxWidth="7em"
+                            />
                         </InputGroup>
-                        </Center>
-                    </Flex>
-                    <AccordionIcon />
-                </AccordionButton>
+                    </Center>
+                </Flex>
+                <AccordionIcon />
+            </AccordionButton>
             <AccordionPanel pb={4}>
                 <TableContainer>
                     <Table size="sm">
@@ -75,16 +79,16 @@ export default function Item({item,handleDelete}) {
                             </Tr>
                         </Thead>
                         <Tbody>
-{item.split.map((share,index) => (
-      <Tr key={index}>
-      <Td>Friend</Td>
-      <Td isNumeric>{share}</Td>
-      <Td isNumeric>${share*price}</Td>
-    </Tr>
-
-
-))}
-      </Tbody>
+                            {item.split.map((share, index) => (
+                                <Tr key={index}>
+                                    <Td>Friend</Td>
+                                    <Td isNumeric>{share.toFixed(3)}</Td>
+                                    <Td isNumeric>
+                                        ${(share * price).toFixed(3)}
+                                    </Td>
+                                </Tr>
+                            ))}
+                        </Tbody>
                     </Table>
                 </TableContainer>
             </AccordionPanel>

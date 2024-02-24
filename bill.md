@@ -16,13 +16,43 @@ const dutch = {
     paid: 
 }
 
-27.22 
-
 const settle = [{pay:1,amount:2.50},{pay:2,amount:3.50}]
-
 const round = [{dutch,dutch,dutch}] //corresponds to user index
-
 const party = [{round1,round2,}]
 
+[
+    "Andy",
+    "Bob",
+    "Chris",
+]
+[
+    {
+        "name": "Dish One",
+        "price": 7.99,
+        "split": [
+            0.25,
+            0.5,
+            0.25
+        ]
+    },
+    {
+        "name": "Dish Two",
+        "price": 8.99,
+        "split": [
+            0.25,
+            0.5,
+            0
+        ]
+    },
+    {
+        "name": "Dish Three",
+        "price": 9.99,
+        "split": [
+            0.5,
+            0,
+            0.5
+        ]
+    }
+]
 
 ```

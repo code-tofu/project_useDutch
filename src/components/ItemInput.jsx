@@ -32,29 +32,27 @@ import { PlusSquareIcon, EditIcon } from "@chakra-ui/icons";
 import styles from "./ItemInput.module.css"
 import PropTypes from "prop-types";
 
-const fakefriends = ["Andy", "Bob", "Chris"];
 
 ItemInput.propTypes = {
     addItem: PropTypes.func,
 };
 
-export default function ItemInput({addItem}) {
+export default function ItemInput({friends,addItem}) {
 
 
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [name, setName] = useState("");
-    const [price, setPrice] = useState(0.0);
-    const [split, setSplit] = useState(Array(fakefriends.length).fill(1));
+    const [price, setPrice] = useState("");
+    const [split, setSplit] = useState(Array(friends.length).fill(1));
 
     function handleSplitChange(e,index){
-        console.log(e)
         let newSplit = [...split];
-        newSplit.splice(index, 1,Number(e.target.value));
+        newSplit.splice(index, 1,+ e.target.value);
         setSplit(newSplit);
     }
 
     function handleEvenSplit(){
-        let finalSplit=Array(fakefriends.length).fill(1/split.length)
+        let finalSplit=Array(friends.length).fill(1/split.length)
         addItem({name:name,price:price,split:finalSplit})
         resetInputs();
     }
@@ -69,7 +67,7 @@ export default function ItemInput({addItem}) {
     function resetInputs(){
         setName("");
         setPrice(0.0);
-        setSplit(Array(fakefriends.length).fill(1));
+        setSplit(Array(friends.length).fill(1));
     }
 
     return (
@@ -110,7 +108,7 @@ export default function ItemInput({addItem}) {
                             placeholder="Key In Item Price"
                             w="100%"
                             value={price}
-                            onChange={(e) => setPrice(Number(e.target.value))}
+                            onChange={(e) => setPrice(+ e.target.value)}
                         />
                     </InputGroup>
                 </GridItem>
@@ -151,14 +149,14 @@ export default function ItemInput({addItem}) {
                                 w="100%"
                                 variant="unstyled"
                                 value={price}
-                                onChange={(e) => setPrice(Number(e.target.value))}
+                                onChange={(e) => setPrice(+e.target.value)}
                             />
                         </Flex>
                     </ModalHeader>
                     <ModalCloseButton />
-                    <ModalBody>
-                    <TableContainer>
-                            <Table size="md" className={styles.table_modal} >
+                    <ModalBody p="2">
+                    <TableContainer p="2">
+                            <Table size="md" className={styles.table_modal}>
                                 <Thead>
                                     <Tr>
                                         <Th>Friend</Th>
@@ -167,11 +165,11 @@ export default function ItemInput({addItem}) {
                                     </Tr>
                                 </Thead>
                                 <Tbody>
-                                    {fakefriends.map((friend, index) => (
+                                    {friends.map((friend, index) => (
                                         <Tr key={index}>
-                                            <Td>{friend}</Td>
-                                            <Td ><input value={split[index]} onChange={(e)=>handleSplitChange(e,index)}/></Td>
-                                            <Td isNumeric>${split[index]/split.length*price}</Td>
+                                            <Td>{friend.name}</Td>
+                                            <Td ><Input value={split[index]} onChange={(e)=>handleSplitChange(e,index)}/></Td>
+                                            <Td isNumeric>${(split[index]/split.length*price).toFixed(2)}</Td>
                                         </Tr>
                                     ))}
                                 </Tbody>

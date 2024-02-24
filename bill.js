@@ -20,9 +20,9 @@ function calculateSpent(items, idx) {
     };
 }
 
-function generateBill(items,paid,users,len){
+function generateBill(items,paid,users){
     let bill =[]
-    for(let i=0;i<len;i++){
+    for(let i=0;i<users.len;i++){
         let dutch = calculateSpent(items,i);
         dutch.paid=paid[i];
         dutch.name=users[i];
@@ -41,7 +41,7 @@ const items = [
 console.log("USERS",users)
 console.log("PAID",paid)
 console.log("ITEMS",items)
-console.log(generateBill(items,paid,users,users.length))
+console.log(generateBill(items,paid,users))
 
 
 

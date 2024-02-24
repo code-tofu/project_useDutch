@@ -3,14 +3,14 @@ import { Box, Heading , Button
  import { TimeIcon,ArrowForwardIcon } from '@chakra-ui/icons'
  import { Link } from "react-router-dom";
 
-function Landing() {
+function Landing({nextStep}) {
     return (
-        <Box  borderWidth='1px' borderRadius='lg' p="6px"  >
+        <Box>
         <Heading as='h4' size='md' textAlign='left' mb='6px'>
         On an Outing?
         </Heading>
         
-        <Link to="/friendinput"><Button rightIcon={<ArrowForwardIcon />} colorScheme='blue' variant='outline'> 
+        <Link to="/friendinput"><Button rightIcon={<ArrowForwardIcon />} colorScheme='blue' variant='outline' onClick={nextStep}> 
         New Bill </Button></Link>
 
 

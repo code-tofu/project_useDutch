@@ -1,7 +1,7 @@
 import { useState } from "react"
-import { Stack,Stepper,Step,StepIndicator,StepStatus,StepSeparator,StepIcon,Text, StepNumber,useBreakpointValue,Box,StepTitle,StepDescription,Progress } from "@chakra-ui/react"
+import { Heading, Stack,Stepper,Step,StepIndicator,StepStatus,StepSeparator,StepIcon,Text, StepNumber,useBreakpointValue,Box,StepTitle,StepDescription,Progress } from "@chakra-ui/react"
 
-const steps = [
+const dutchSteps = [
     { title: 'First', description: 'Input Friends' },
     { title: 'Second', description: 'Input Items' },
     { title: 'Third', description: 'Check Bill' },
@@ -9,17 +9,20 @@ const steps = [
     { title: 'Five', description: 'Inform Friends' },
   ]
 
-export default function NavStepper() {
-
-    const [activeStep, setActiveStep] = useState({
-      index: 0,
-      count: steps.length,
-    })
-
+export default function NavStepper({activeStep}) {
     return (
+      <>
+            {(activeStep === -1) ? 
+            <Box p="4" pt="2" mb="4" borderWidth='1px' borderRadius='lg'>
+            <Heading as='h1'>useDutch</Heading>
+            <Heading as='h5' size='sm'>
+              React-Based Bill-Splitting
+            </Heading>
+            </Box>
+          :
       <Stack>
-      <Stepper size='md' index={activeStep.index} gap='0'>
-        {steps.map((step, index) => (
+      <Stepper size='md' index={activeStep} gap='0'>
+        {dutchSteps.map((step, index) => (
           <Step key={index} gap='0'>
             <StepIndicator>
               <StepStatus
@@ -33,8 +36,10 @@ export default function NavStepper() {
         ))}
       </Stepper>
       <Text>
-      <b>Step {activeStep.index + 1}:</b> {steps[activeStep.index].description}
+      <b>Step {activeStep+1}:</b> {dutchSteps[activeStep].description}
       </Text>
     </Stack>
+}
+    </>
     )
   }

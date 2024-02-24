@@ -13,21 +13,12 @@ import { useState } from "react";
 import { DeleteIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 
-const fakefriends = ["Andy", "Bob", "Chris", "Dan", "Ethan"];
-
-function FriendInput() {
-    const [friends, setFriends] = useState(fakefriends);
+export default function FriendInput({friends,dispatch,nextStep,prevStep}) {
     const [name, setName] = useState("");
 
     function handleAddFriend() {
-        setFriends((friends) => [...friends, name]);
+        dispatch({type:"ADD_FRIEND",payload:name})
         setName("");
-    }
-
-    function handleDelete(index) {
-        let newFriends = [...friends];
-        newFriends.splice(index, 1);
-        setFriends(newFriends);
     }
 
     return (
@@ -38,12 +29,13 @@ function FriendInput() {
             {friends.map((friend, index) => (
                 <Box key={index} p="4px">
                     <Flex justify="space-between" alignItems="center">
-                        <Text fontSize="md">{friend}</Text>
+                        <Text fontSize="md">{friend.name}</Text>
                         <IconButton
                             variant="outline"
                             aria-label="Delete from List"
                             icon={<DeleteIcon />}
-                            onClick={() => handleDelete(index)}
+                            onClick={() => dispatch({type:"DEL_FRIEND",payload:index})
+                        }
                         />
                     </Flex>
                     <Divider />
@@ -70,6 +62,7 @@ function FriendInput() {
                         rightIcon={<ArrowForwardIcon />}
                         colorScheme="blue"
                         variant="outline"
+                        onClick={nextStep}
                     >
                         Next
                     </Button>
@@ -78,5 +71,3 @@ function FriendInput() {
         </Box>
     );
 }
-
-export default FriendInput;
