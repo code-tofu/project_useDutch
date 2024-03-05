@@ -23,6 +23,7 @@ export default function FriendInput({friends,dispatch,nextStep,prevStep}) {
 
     return (
         <Box>
+            {console.log("FRIENDINPUT",friends)}
             <Heading as="h3" size="lg">
                 Who&apos;s Sharing?
             </Heading>

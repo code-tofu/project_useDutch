@@ -24,6 +24,7 @@ export default function ItemsList({items,friends,dispatch,nextStep,prevStep}) {
 
     return (
         <>
+        {console.log("PAIDINPUT:",{items,friends})}
             <Heading as="h3" size="lg">
                 Who Paid?
             </Heading>

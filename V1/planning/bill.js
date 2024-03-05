@@ -1,6 +1,16 @@
 var _gst = 0.09
 var _svc = 0.1
 
+function calculateTotals(items,isGST,isSVC){
+    const subtotal = items.reduce((sum,item)=>sum + item,0)
+    const svc = _svc * subtotal * isGST;
+    const gst = _gst *(subtotal + svc) * isSVC;
+    return {
+        subtotal:subtotal,
+        total: subtotal+svc+gst
+    }
+}
+
 function calculateSpent(items, idx) {
     let spent = [];
     let subtotal = 0.0;

@@ -1,4 +1,4 @@
-import React from "react";
+import {React,useState} from "react";
 import Item from "./Item";
 import ItemInput from "./ItemInput";
 import { Accordion, Heading, Flex, Button } from "@chakra-ui/react";
@@ -18,6 +18,19 @@ import {
     GridItem,
 } from "@chakra-ui/react";
 
+var _gst = 0.09
+var _svc = 0.1
+
+function calculateTotals(items,isGST,isSVC){
+    const subtotal = items.reduce((sum,item)=>sum + item.price,0)
+    const svc = _svc * subtotal * isSVC
+    const gst = _gst *(subtotal + svc) * isGST;
+    return {
+        subtotal:subtotal,
+        total: subtotal+svc+gst
+    }
+}
+
 export default function ItemsList({
     friends,
     items,
@@ -26,8 +39,14 @@ export default function ItemsList({
     nextStep,
     prevStep,
 }) {
+    const [GST,setGST] = useState(true);
+    const [SVC,setSVC] = useState(true);
+
+    const {subtotal,total} = calculateTotals(items,GST,SVC);
+
     return (
         <>
+        {console.log("ITEMSINPUTLIST:",{items,friends},"GST",GST,"SVC",SVC)}
             <Heading as="h3" size="lg">
                 Who Ordered What?
             </Heading>
@@ -57,7 +76,7 @@ export default function ItemsList({
 
                 >
                     <GridItem colSpan={1}>
-                            <Checkbox defaultChecked>GST</Checkbox>
+                    <Checkbox isChecked={GST} onChange={(e) => setGST(e.target.checked) }>GST</Checkbox>
                     </GridItem>
 
                     <GridItem colSpan={2} rowSpan={2}>
@@ -66,11 +85,11 @@ export default function ItemsList({
                                 <Tbody>
                                     <Tr>
                                         <Td>SubTotal</Td>
-                                        <Td>$0000.00</Td>
+                                        <Td>${subtotal.toFixed(2)}</Td>
                                     </Tr>
                                     <Tr>
                                         <Td>Total:</Td>
-                                        <Td>$0000.00</Td>
+                                        <Td>${total.toFixed(2)}</Td>
                                     </Tr>
                                 </Tbody>
                             </Table>
@@ -78,7 +97,7 @@ export default function ItemsList({
                     </GridItem>
 
                     <GridItem colSpan={1}>
-                        <Checkbox defaultChecked>Service Charge</Checkbox>
+                        <Checkbox isChecked={SVC} onChange={(e) => setSVC(e.target.checked) }>Service Charge</Checkbox>
                     </GridItem>
                 </Grid>
             </Box>

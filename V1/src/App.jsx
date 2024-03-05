@@ -18,11 +18,7 @@ items:[
 ]}
 ;
 
-var _gst = 0.09;
-var _svc = 0.1;
-
 function reducer(state, action) {
-
   switch(action.type){
     case 'ADD_FRIEND' : {
       let updatedFriends = [...state.friends]
@@ -41,11 +37,9 @@ function reducer(state, action) {
     }
     case 'ADD_ITEM' : {
       let newCalc = {...state.calc,
-
         total:state.items.reduce((sum,item)=>sum + item.price,0)
       }
       return { ...state, items: [...state.items, action.payload],};
-
     }
     case 'DELETE_ITEM' :{
       let newItems = [...state.items];
@@ -58,7 +52,6 @@ function reducer(state, action) {
   }
 
 function App() {
-
     const [{friends,items,calc},dispatch] = useReducer(reducer, initialData)
     const [activeStep,setActiveStep] = useState(-1)
 
@@ -72,6 +65,7 @@ function App() {
     
     return (
         <ChakraProvider>
+                  {console.log({friends,items,calc})}
             <Container width="auto" maxWidth='1280px' height="100vh" padding='1rem'> 
             <NavStepper activeStep={activeStep}></NavStepper>
             <BrowserRouter>

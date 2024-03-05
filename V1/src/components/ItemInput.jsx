@@ -177,7 +177,7 @@ export default function ItemInput({friends,addItem}) {
                                     <Tr>
                                         <Th></Th>
                                         <Th>{split.reduce((sum,item)=>sum + item,0)}  / {split.length}</Th>
-                                        <Th isNumeric>${split.reduce((sum,item)=>sum + item/split.length*price,0)}</Th>
+                                        <Th isNumeric>${split.reduce((sum,item)=>sum + item/split.length*price,0).toFixed(2)}</Th>
                                     </Tr>
                                 </Tfoot>
                             </Table>
